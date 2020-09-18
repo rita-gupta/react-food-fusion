@@ -1,9 +1,40 @@
-import React from 'react'
+import React from 'react';
+import { Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle } from 'reactstrap';
 
-function HomeComponent() {
+const RenderCard =({item}) => {
+    return(
+        <Card>
+        <CardImg src={item.image} alt={item.name} />
+        <CardBody>
+        {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> :null }
+            <CardTitle>{item.name}
+            </CardTitle>
+            <CardText>{item.description}
+            </CardText>
+        </CardBody>
+    </Card>
+    )
+
+}
+
+function HomeComponent(props) {
     return (
-        <div>
-            <h1>this is a home component</h1>
+        <div className="container">
+            <div className="row">
+            <div className="col-12 col-md">
+            <RenderCard item={props.dish} /> 
+
+            </div>
+            <div className="col-12 col-md">
+            <RenderCard item={props.promotion} /> 
+
+            </div>
+            <div className="col-12 col-md">
+            <RenderCard item={props.leader} /> 
+
+            </div>
+            </div>
+
         </div>
     )
 }
