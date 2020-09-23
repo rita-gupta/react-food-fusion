@@ -4,7 +4,7 @@ export const DISHES =
     {
       id: 0,
       name: 'Chatamari Pizza',
-      image: 'assets/images/pizza.png',
+      image: '/assets/images/pizza.png',
       category: 'mains',
       label: 'Hot',
       price: '4.99',
@@ -15,7 +15,7 @@ export const DISHES =
     {
       id: 1,
       name: 'Zucchini Pakoda',
-      image: 'assets/images/pakoda.png',
+      image: '/assets/images/pakoda.png',
       category: 'appetizer',
       label: '',
       price: '1.99',
@@ -25,7 +25,7 @@ export const DISHES =
     {
       id: 2,
       name: 'Doughnut',
-      image: 'assets/images/doughnut.png',
+      image: '/assets/images/Doughnut.png',
       category: 'appetizer',
       label: 'New',
       price: '1.99',
@@ -35,7 +35,7 @@ export const DISHES =
     {
       id: 3,
       name: 'Cheese Cake',
-      image: 'assets/images/cheesecake.png',
+      image: '/assets/images/cheesecake.png',
       category: 'dessert',
       label: '',
       price: '2.99',
