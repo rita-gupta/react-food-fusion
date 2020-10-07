@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommetForm';
 
 
 const RenderMenuItem = ({ dish }) => {
@@ -47,6 +48,8 @@ const Menu = (props) => {
       </div>
       <div className='row'>
         {menu}
+        <CommentForm />
+
       </div>
     </div>
   )
