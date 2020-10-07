@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../Css/ContactUS.css';
 import { Breadcrumb, BreadcrumbItem, Form, Col, FormGroup, Button, Input, Label, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {Control, LocalForm, Errors} from 'react-redux-form';
 
 
 class ContactUsComponent extends Component {
@@ -24,74 +25,71 @@ constructor(props){
             email:false
         }
     }
-    this.handleInput= this.handleInput.bind(this);
-    this.onFormatSubmit=this.onFormatSubmit.bind(this);
+    // this.handleInput= this.handleInput.bind(this);
+    // this.onFormatSubmit=this.onFormatSubmit.bind(this);
 }
-handleInput(event){
-    const target = event.target;
-    const value = target.type ==='checkbox' ? target.checked:target.value;
-    const name=target.name;
+// handleInput(event){
+//     const target = event.target;
+//     const value = target.type ==='checkbox' ? target.checked:target.value;
+//     const name=target.name;
 
-    this.setState({
-        [name]:value
-    })
+//     this.setState({
+//         [name]:value
+//     })
 
+// }
+// handleBlur = (field) => (event) =>{
+//   this.setState({
+//         touched:{...this.state.touched,[field]:true}
+//     })  
+// }
+
+
+// validate(firstname, lastname, telnum, email){
+//     const error = {
+//         firstname:'',
+//         lastname:'',
+//         telnum:'',
+//         email:''
+//     };
+
+//     if(this.state.touched.firstname && firstname.length < 3)
+//     error.firstname ="First Name Should be >=3 characters";
+//     else if (this.state.touched.firstname && firstname.length > 10)
+//     error.firstname = "First NAme should be <=10 characters";
+
+//     if(this.state.touched.lastname && lastname.length < 3)
+//     error.lastname ="Last Name Should be >=3 characters";
+//     else if (this.state.touched.lastname && lastname.length > 10)
+//     error.lastname = "Last NAme should be <=10 characters";
+
+//     const reg = /^\d+$/;
+//     if(this.state.touched.telnum && !reg.test(telnum))
+//     error.telnum ="Tel. Number should contain only numbers";
+// if (this.state.touched.telnum && email.split('').filter(x => x === "@").length !==1)
+// error.email = 'Email should contain a @';
+
+// return error;
+
+// }
+
+// onFormatSubmit(event){
+//     event.preventDefault()
+//     alert(` firstname:${this.state.firstname},
+//     lastname:${this.state.lastname},
+//     telnum:${this.state.telnum},
+//     email:${this.state.email},
+//     agree:${this.state.agree},
+//     contactType:${this.state.contactType},
+//     message:${this.state.message}`)
+
+// } 
+handleSubmit(values){
+    
 }
-handleBlur = (field) => (event) =>{
-    this.setState({
-        touched:{...this.state.touched,[field]:true}
-    })
-}
-
-validate(firstname, lastname, telnum, email){
-    const error = {
-        firstname:'',
-        lastname:'',
-        telnum:'',
-        email:''
-    };
-
-    if(this.state.touched.firstname && firstname.length < 3)
-    error.firstname ="First Name Should be >=3 characters";
-    else if (this.state.touched.firstname && firstname.length > 10)
-    error.firstname = "First NAme should be <=10 characters";
-
-    if(this.state.touched.lastname && lastname.length < 3)
-    error.lastname ="Last Name Should be >=3 characters";
-    else if (this.state.touched.lastname && lastname.length > 10)
-    error.lastname = "Last NAme should be <=10 characters";
-
-    const reg = /^\d+$/;
-    if(this.state.touched.telnum && !reg.test(telnum))
-    error.telnum ="Tel. Number should contain only numbers";
-if (this.state.touched.telnum && email.split('').filter(x => x === "@").length !==1)
-error.email = 'Email should contain a @';
-
-return error;
-
-}
-
-
-
-
-
-
-
-onFormatSubmit(event){
-    event.preventDefault()
-    alert(` firstname:${this.state.firstname},
-    lastname:${this.state.lastname},
-    telnum:${this.state.telnum},
-    email:${this.state.email},
-    agree:${this.state.agree},
-    contactType:${this.state.contactType},
-    message:${this.state.message}`)
-
-}
-
 
     render() {
-        const errors = this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email)
+       // const errors = this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email)
 
         return (
             <div className="container">
@@ -142,11 +140,13 @@ onFormatSubmit(event){
                 <h3>Send us Feedback</h3>
                 </div>
                 <div className="col-12 col-md-9" >
-                <Form onSubmit={this.onFormatSubmit}> 
-                <FormGroup row>
-                <Label htmlFor="firstname" md={2}>First Name</Label>
+
+             {/*  <Form onSubmit={this.onFormatSubmit}> 
+             <FormGroup row>
+            <Label htmlFor="firstname" md={2}>First Name</Label>
                 <Col md={10}>
-                <Input type='text'
+        <Input type='text' 
+
                 id='firstname'
                 name='firstname'
                 valid={errors.firstname === ''}
@@ -162,7 +162,7 @@ onFormatSubmit(event){
                 <FormGroup row>
                 <Label htmlFor="lastname" md={2}>Last Name</Label>
                 <Col md={10}>
-                <Input type='text'
+        <Input type='text'     
                 id='lastname'
                 name='lastname'
                 valid={errors.lastname === ''}
@@ -262,7 +262,64 @@ onFormatSubmit(event){
                 
                 
                 </Form>
-                </div>
+        */}
+             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+             <div className="form-group row">
+             <Label md={2}>First Name</Label>
+             <Col md={10}>
+             <Control.text model=".firstname" id="firstname" name="firstname" placeholder="Enter Your First Name" className='form-control'/>
+             </Col>
+             </div>
+             <div className="form-group row">
+             <Label md={2}>Last Name</Label>
+             <Col md={10}>
+             <Control.text model=".lastname" id="lastname" name="lastname" placeholder="Enter Your Last Name" className='form-control'/>
+             </Col>
+             </div>
+             <div className="form-group row">
+             <Label md={2}>First Name</Label>
+             <Col md={10}>
+             <Control.text model=".telnum" id="telnum" name="telnum" placeholder="Enter Your Contact Number" className='form-control'/>
+             </Col>
+             </div>
+             <div className="form-group row">
+             <Label md={2}>Email</Label>
+             <Col md={10}>
+             <Control.text model=".email" id="email" name="email" placeholder="Enter Your Email Address" className='form-control'/>
+             </Col>
+             </div>
+             <div className="form-group row">
+             <Col md={{size:6, offset:2}}>
+             <div className="form-check">
+             <Label check>
+             <Control.checkbox model=".agree" name="agree" className="form-check-input"/>
+             <strong>May we contact you ?</strong>
+             </Label>
+             </div>
+             </Col>
+             <Col md={{size:3, offset:1}}>
+             <Control.select model=".contactType" name="contactType"
+             className="form-control">
+             <option>Tel.</option>
+             <option>Email</option>
+
+             </Control.select>
+             </Col>
+             </div>
+             <div className="form-group row">
+             <Label md={2}>Your Feedback </Label>
+             <Col md={10}>
+             <Control.textarea model=".message" id="message" name="message" rows="8" className="form-control" />
+             </Col>
+             </div>
+             <div className="form-group row">
+             <Col md={{size:10, offset:2}}>
+             <Button type="submit" color="primary">Submit</Button>
+             </Col>
+             </div>
+             </LocalForm>
+    
+        </div>
                 </div> 
                       </div>
         )
