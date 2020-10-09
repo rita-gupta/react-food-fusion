@@ -17,7 +17,7 @@ const RenderItem = ({dish}) => {
     ) 
 }
 
-const RenderComment = ({comments}) => {
+const RenderComment = ({comments, dishId, addComment}) => {
     return(
 
        <div>
@@ -27,7 +27,9 @@ const RenderComment = ({comments}) => {
             <li>{`--${comment.author}`}, {new Intl.DateTimeFormat('en-US',{year:"numeric",month:"short", day:"2-digit"}).format(new Date(Date.parse(comment.date)))}</li>
             </ul>
         ))}
-        <CommentForm />
+
+{/* dishId={dishId} dishDetailComponent -> dishId stored in a new var or prop that is dishID */}
+        <CommentForm dishId={dishId} addComment={addComment} />
 
         </div>
 
@@ -56,7 +58,8 @@ const DishDetailComponent = (props) => {
             </div>
             <div className="col-12 col-md-5 m-1">
             <h2>Comments</h2>
-            <RenderComment comments={props.comments}/>
+            <RenderComment comments={props.comments} dishId={props.dish.id} addComment={props.addComment}/>
+
             </div>
             </div>
             </div>

@@ -23,10 +23,21 @@ class CommentForm extends Component {
     })
   }
 
+
   handleInput = (values) => {
-    alert(`Your Comment is \n ${JSON.stringify(values)}`);
+    // alert(`Your Comment is \n ${JSON.stringify(values)}`);
     this.toggleModal();
+    this.props.addComment( this.props.dishId, values.rating, values.author, values.comment);
+
+
   }
+
+// handleSubmit = (values) => {
+//   console.log(values)
+//   this.toggleModal();
+
+
+// }
 
   render() {
     return (
