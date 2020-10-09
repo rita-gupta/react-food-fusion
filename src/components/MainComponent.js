@@ -12,7 +12,7 @@ import About from './AboutUs';
 
 //store
 import {connect} from 'react-redux';
-import {addComment} from '../redux/ActionCreators';
+import {addComment, fetchDishes} from '../redux/ActionCreators';
 
 //mapStateToprops= it takes the current state from the store and conerts it into the props tobe used by the respective component
 
@@ -28,8 +28,15 @@ const mapStateToprops = state => {
   
 }
 const mapDispatchToProps= dispatch => ({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+
+  fetchDishes : ()=> {dispatch (fetchDishes())}
 })
+
+
+
+
+
 class Main extends Component {
     constructor (props){
         super(props)
@@ -46,6 +53,12 @@ class Main extends Component {
         console.log("initial state updated");
   
       }
+
+
+      componentDidMount(){
+        this.props.fetchDishes();
+      }
+
       
         render(){
 
@@ -53,7 +66,11 @@ class Main extends Component {
             return(
               <HomeComponent 
               //featured dish
-              dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+              dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+              dishLoading ={this.props.dishes.isLoading}
+              dishErrmess={this.props.dishes.errmess}
+
+
               //promotions
               promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
               //leaders
@@ -64,8 +81,12 @@ class Main extends Component {
           }
 
           const DishDetail = ({match}) => {
+
             return(
-              <DishDetailComponent dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
+              <DishDetailComponent dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
+              
+              isLoading={this.props.dishes.isLoading}
+              errmess={this.props.dishes.errmess}
               comments={this.props.comments.filter((comment) => comment.dishId ===parseInt(match.params.dishId,10))}
               
               addComment={this.props.addComment}
@@ -73,18 +94,18 @@ class Main extends Component {
             )
           }
           return (
-            <div>
-      {/*<HeaderComponent />
-
-          <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelected(dishId)}/>
-          <DishDetail dishSelected={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
-      <FooterComponent />*/}
-
+          
+    <div>
       <HeaderComponent />
 
       <Switch>
       <Route path="/home" component={HomePage} />
-      <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} onClick={(dishId) => this.onDishSelected(dishId)} />} />
+      <Route exact path="/menu" component={() =>
+         <Menu dishes={this.props.dishes.dishes}
+         isLoading={this.props.dishes.isLoading}
+         errmess={this.props.dishes.errmess} 
+         onClick={(dishId) => this.onDishSelected(dishId)} />} />
+
       <Route exact path="/menu/:dishId" component={DishDetail}/>
       <Route path="/aboutus" component={() => <About  leaders={this.props.leaders}/>} />
       <Route path="/ContactUs" component={() => <ContactUsComponent />} />
@@ -93,6 +114,7 @@ class Main extends Component {
       </Switch>
       <FooterComponent />
             </div>
+          
           );
         }
        

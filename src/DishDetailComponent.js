@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardImg, CardBody, CardTitle, CardText, BreadcrumbItem, Breadcrumb } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import CommentForm from './components/CommetForm';
+import LoadingComponent from './components/LoadingComponent';
 
 
 const RenderItem = ({dish}) => {
@@ -41,8 +42,18 @@ const RenderComment = ({comments, dishId, addComment}) => {
 
 
 const DishDetailComponent = (props) => {
+    if(props.isLoading){
+        return(
+            <LoadingComponent/>
+        )
+    }else if(props.errmess) {
+return (
+    <h4>{props.errmess}</h4>
+)
+    }else {
         return (
             <div className="container">
+            
             <div className="row">
             <Breadcrumb>
               <BreadcrumbItem>
@@ -67,6 +78,8 @@ const DishDetailComponent = (props) => {
             
             
         )
+    }
+       
     } 
 
 
