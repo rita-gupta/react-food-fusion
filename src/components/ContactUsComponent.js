@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../Css/ContactUS.css';
-import { Breadcrumb, BreadcrumbItem, Form, Col, FormGroup, Button, Input, Label, FormFeedback } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Col, Button,Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import {Control, LocalForm, Errors} from 'react-redux-form';
+import {Control,Form, Errors} from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLenght = (len) => (val) => !(val) || (val.length <=len);
@@ -91,6 +91,7 @@ constructor(props){
 
 // } 
 handleSubmit(values){
+    this.props.resetForm();
 
 }
 
@@ -269,7 +270,7 @@ handleSubmit(values){
                 
                 </Form>
         */}
-             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+             <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
              <div className="form-group row">
              <Label md={2}>First Name</Label>
              <Col md={10}>
@@ -363,7 +364,7 @@ handleSubmit(values){
              <Button type="submit" color="primary">Submit</Button>
              </Col>
              </div>
-             </LocalForm>
+             </Form>
     
         </div>
                 </div> 
